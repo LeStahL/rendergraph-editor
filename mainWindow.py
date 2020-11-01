@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import ui_mainWindow
 
-import renderPassPropertyModel, renderPass, renderPassPropertyDelegate
+import renderPassPropertyModel, renderPass, renderPassPropertyDelegate, renderPassView
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, application):
@@ -16,6 +16,10 @@ class MainWindow(QtWidgets.QMainWindow):
         delegate = renderPassPropertyDelegate.RenderPassPropertyDelegate()
         self.ui.tableView.setModel(model)
         self.ui.tableView.setItemDelegate(delegate)
+
+        view = renderPassView.RenderPassView(self.ui.centralwidget)
+        self.ui.centralwidget.layout().addWidget(view)
+
         self.update()
 
         return
