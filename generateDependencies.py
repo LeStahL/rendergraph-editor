@@ -14,7 +14,10 @@ if __name__ == '__main__':
     args, rest = parser.parse_known_args()
 
     if args.uiFile != None:
-        pyFileName = args.uiFile.replace('.ui', '.py')
+        pyFileName = args.uiFile.replace('.ui', '.py').replace('\\', '/')
+        pyFileNameComponents = pyFileName.split('/')
+        pyFileNameComponents[-1] = "ui_" + pyFileNameComponents[-1]
+        pyFileName = "/".join(pyFileNameComponents)
         print('Compiling ui file ' + args.uiFile + ' to ' + pyFileName + ' ...')
         pyFile = open(pyFileName, "wt")
         if not pyFile.writable():
