@@ -39,11 +39,11 @@ class RenderPassPropertyModel(QtCore.QAbstractTableModel):
     def setData(self, index, value, role = QtCore.Qt.EditRole):
         if role == QtCore.Qt.EditRole:
             if index.row() == 0:
-                self.renderPass.name = value
+                self.renderPass.name = value.value()
                 self.dataChanged.emit(index, index, [QtCore.Qt.EditRole])
                 return True
             elif index.row() == 1:
-                self.renderPass.type = value
+                self.renderPass.type = value.value()
                 self.dataChanged.emit(index, index, [QtCore.Qt.EditRole])
                 return True
         return False

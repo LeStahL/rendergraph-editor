@@ -9,12 +9,23 @@ class RenderPassPropertyDelegate(QtWidgets.QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         if index.column() == 1:
             if index.row() == 0:
-                editor = QtWidgets.QLineEdit(parent)
-                editor.setText(str(index.model().data(index)))
-                return editor
+                return QtWidgets.QLineEdit(parent)
             elif index.row() == 1:
                 editor = QtWidgets.QComboBox(parent)
                 editor.addItems([renderPass.RenderPass.Buffer, renderPass.RenderPass.Screen])
-                editor.setCurrentText(str(index.model().data(index)))
                 return editor
         return 0
+
+    def setEditorData(self, editor, index):
+        if index.column() == 1:
+            if index.row() == 0:
+                editor.setText(index.model().data(index).value())
+            elif index.row() == 1:
+                editor.setCurrentText(index.model().data(index).value())
+    
+    def setModelData(self, editor, model, index):
+        if index.column() == 1:
+            if index.row() == 0:
+                model.setData(index, QtCore.QVariant(editor.text()))
+            elif index.row() == 1:
+                model.setData(index, QtCore.QVariant(editor.currentText()))
